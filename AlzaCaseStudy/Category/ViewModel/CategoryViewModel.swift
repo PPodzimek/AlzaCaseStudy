@@ -18,6 +18,9 @@ class CategoryViewModel {
         case serverMessage(String)
     }
     
+    public var navigationStack: [String] = []
+    public var allowRemoval: Bool = true
+    
     public let homePageModel : PublishSubject<[HomePage]> = PublishSubject()
     public let sateliteModel : PublishSubject<[Satelite]> = PublishSubject()
     public let loading: PublishSubject<Bool> = PublishSubject()

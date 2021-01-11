@@ -15,26 +15,48 @@ class CategoryVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     weak var tableView: UITableView!
     
-    var label: UILabel!
+    weak var label: UILabel!
     
-    var categoryVM = CategoryViewModel()
+    var categoryVM: CategoryViewModel
     
     var categoriesToRender: [Category] = []
     var sateliteProducts: [SateliteProduct] = []
     
     let disposeBag = DisposeBag()
     
+    
+    init(viewModel: CategoryViewModel) {
+        
+        self.categoryVM = viewModel
+    
+        super.init(nibName: nil, bundle: nil)
+    }
+    
+    required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.tableView.reloadData()
+        if categoryVM.navigationStack.count > 1 && categoryVM.allowRemoval {
+            self.categoryVM.navigationStack.removeLast()
+        }
+        
+        if let desiredUrl = categoryVM.navigationStack.last {
+            print("desiredUrl from navigationStack: \(String(describing: desiredUrl))")
+            categoryVM.allowRemoval = true
+            self.categoryVM.requestSatelite(url: desiredUrl)
+        }
+//        self.tableView.reloadData()
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.setupBindings()
-        categoryVM.requestHomePage()
+        
+        
     }
     
     
@@ -74,22 +96,22 @@ class CategoryVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     private func setupBindings() {
         
-        categoryVM
-            .homePageModel
-            .observeOn(MainScheduler.instance)
-            .subscribe(onNext: { (result) in
-                
-                if let desiredObj = result.first(where: { (homePageObj) -> Bool in
-                    return homePageObj.name == "Alza" || homePageObj.name == "Electronics"
-                }) {
-                    let desiredUrl = desiredObj.section.homePageSelf.sectionUrl.description
-                    print("desiredUrl: \(String(describing: desiredUrl))")
-                    self.categoryVM.requestSatelite(url: desiredUrl)
-                } else {
-                    print("Error getting desired satelite object")
-                }
-            })
-            .disposed(by: disposeBag)
+//        categoryVM
+//            .homePageModel
+//            .observeOn(MainScheduler.instance)
+//            .subscribe(onNext: { (result) in
+//                
+//                if let desiredObj = result.first(where: { (homePageObj) -> Bool in
+//                    return homePageObj.name == "Alza" || homePageObj.name == "Electronics"
+//                }) {
+//                    let desiredUrl = desiredObj.section.homePageSelf.sectionUrl.description
+//                    print("desiredUrl: \(String(describing: desiredUrl))")
+//                    self.categoryVM.requestSatelite(url: desiredUrl)
+//                } else {
+//                    print("Error getting desired satelite object")
+//                }
+//            })
+//            .disposed(by: disposeBag)
         
         
         categoryVM
@@ -149,6 +171,7 @@ extension CategoryVC {
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        
         if section == 0 {
             return self.categoriesToRender.count
         } else if section == 1 {
@@ -159,6 +182,7 @@ extension CategoryVC {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         if indexPath.section == 0 {
             let cell: CategoryCell = tableView.dequeCellForIndexPath(indexPath)
             if let text: String = self.categoriesToRender[indexPath.row].name {
@@ -174,6 +198,34 @@ extension CategoryVC {
         } else {
             return tableView.dequeCellForIndexPath(indexPath) as CategoryCell
         }
+    }
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        print("didSelectRowAt indexPath: \(indexPath)")
+        if indexPath.section == 0 {
+            self.pushToNewCategory(indexPath: indexPath)
+        } else if indexPath.section == 1 {
+            self.pushToProductDetail(indexPath: indexPath)
+        }
+    }
+    
+    func pushToNewCategory(indexPath: IndexPath) {
+        print("pushToNewCategory")
+        
+        if let newCategoryUrl = self.categoriesToRender[indexPath.row].categorySelf?.categoryUrl {
+            
+            self.categoryVM.navigationStack.append(newCategoryUrl)
+            let vc = CategoryVC(viewModel: self.categoryVM)
+            categoryVM.allowRemoval = false
+            vc.modalPresentationStyle = .fullScreen
+            navigationController?.pushViewController(vc, animated: true)
+        }
+        
+    }
+    
+    func pushToProductDetail(indexPath: IndexPath) {
+        print("pushToProductDetail")
     }
     
 }
