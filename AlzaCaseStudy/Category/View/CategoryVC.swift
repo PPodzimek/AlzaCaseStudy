@@ -86,7 +86,6 @@ class CategoryVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         tableView.dataSource = self
         tableView.delegate = self
         tableView.separatorStyle = .none
-        tableView.backgroundColor = UIColor.lightGray
         view.addSubview(tableView)
         tableView.snp.makeConstraints { (make) in
             make.edges.equalTo(view.safeAreaLayoutGuide)
@@ -158,26 +157,17 @@ class CategoryVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
 extension CategoryVC {
     
     func numberOfSections(in tableView: UITableView) -> Int {
-
-//        var number = 0
-//        let array = self.sateliteObjArray.filter { (satelite) -> Bool in
-//            satelite.itemType.description == "products"
-//        }
-//        number = array.count
-//
-//        print("numberToRender: \(number)")
-//        return number
-        return 2
+        return 3
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         
         if section == 0 {
             return self.categoriesToRender.count
-        } else if section == 1 {
+        } else if section == 2 {
             return self.sateliteProducts.count
         } else {
-            return 0
+            return 1
         }
     }
     
@@ -185,18 +175,31 @@ extension CategoryVC {
         
         if indexPath.section == 0 {
             let cell: CategoryCell = tableView.dequeCellForIndexPath(indexPath)
+            cell.selectionStyle = .none
+            
             if let text: String = self.categoriesToRender[indexPath.row].name {
-                cell.setup(text, andTopSeparatorLeadingOffset: 8)
+                cell.setup(text)
             }
+            
             return cell
-        } else if indexPath.section == 1 {
-            let cell: CategoryCell = tableView.dequeCellForIndexPath(indexPath)
-            if let text: String = self.sateliteProducts[indexPath.row].name {
-                cell.setup(text, andTopSeparatorLeadingOffset: 8)
+            
+        } else if indexPath.section == 2 {
+            let cell: SateliteProductCell = tableView.dequeCellForIndexPath(indexPath)
+            cell.selectionStyle = .none
+            
+            if let name: String = self.sateliteProducts[indexPath.row].name,
+               let price = self.sateliteProducts[indexPath.row].price,
+               let availability = self.sateliteProducts[indexPath.row].availability {
+                
+                cell.setup(name, price: price, availability: availability)
             }
+            
             return cell
         } else {
-            return tableView.dequeCellForIndexPath(indexPath) as CategoryCell
+            let cell: EmptyCell = tableView.dequeCellForIndexPath(indexPath)
+            cell.selectionStyle = .none
+            
+            return cell
         }
     }
     
