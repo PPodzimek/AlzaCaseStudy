@@ -33,8 +33,10 @@ class SateliteProductCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        self.contentView.backgroundColor = .lightGray
+        
         let containerView = UIView()
-        containerView.backgroundColor = .lightGray
+        containerView.backgroundColor = .white
         
         self.contentView.addSubview(containerView)
         containerView.snp.makeConstraints { (make) in
@@ -112,6 +114,13 @@ class SateliteProductCell: UITableViewCell {
         self.name.text = name
         self.price.text = price
         self.availability.text = availability
+        
+        
+    }
+    
+    func setupImage(_ image: UIImage) {
+        
+        self.productImage.image = image
         
         
     }

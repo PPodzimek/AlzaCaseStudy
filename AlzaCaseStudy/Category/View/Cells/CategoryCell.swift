@@ -21,15 +21,17 @@ class CategoryCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        self.contentView.backgroundColor = .lightGray
+        
         let containerView = UIView()
-        containerView.backgroundColor = .lightGray
+        containerView.backgroundColor = .white
         
         self.contentView.addSubview(containerView)
         containerView.snp.makeConstraints { (make) in
-            make.top.equalTo(4)
+            make.top.equalTo(8)
             make.leading.equalTo(8)
             make.trailing.equalTo(-8)
-            make.bottom.equalTo(-4)
+            make.bottom.equalTo(0)
         }
         self.containerView = containerView
         

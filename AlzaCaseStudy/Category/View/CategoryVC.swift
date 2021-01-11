@@ -17,6 +17,8 @@ class CategoryVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
     weak var label: UILabel!
     
+    var imageLoader = ImageLoader()
+    
     var categoryVM: CategoryViewModel
     
     var categoriesToRender: [Category] = []
@@ -63,7 +65,9 @@ class CategoryVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     override func loadView() {
         super.loadView()
         
-        view.backgroundColor = .white
+        navigationController?.navigationBar.barTintColor = .systemBlue
+        navigationController?.navigationBar.tintColor = .white
+        view.backgroundColor = .lightGray
         
         let label = UILabel()
         label.text = "Hello world"
@@ -186,6 +190,12 @@ extension CategoryVC {
         } else if indexPath.section == 2 {
             let cell: SateliteProductCell = tableView.dequeCellForIndexPath(indexPath)
             cell.selectionStyle = .none
+            
+            if let imagePath = self.sateliteProducts[indexPath.row].imgUrl {
+                imageLoader.obtainImageWithPath(imagePath: imagePath) { (image) in
+                    cell.setupImage(image)
+                }
+            }
             
             if let name: String = self.sateliteProducts[indexPath.row].name,
                let price = self.sateliteProducts[indexPath.row].price,

@@ -18,8 +18,12 @@ class EmptyCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
+        self.contentView.backgroundColor = .lightGray
+        
         self.contentView.snp.makeConstraints { (make) in
             make.height.equalTo(32)
+            make.leading.equalTo(0)
+            make.trailing.equalTo(0)
         }
         
     }
