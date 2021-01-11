@@ -49,11 +49,11 @@ struct CategoriesSelf: Codable {
 struct Categories: Codable {
     
     let categoriesSelf: CategoriesSelf?
-    let categories: [Category]?
+    let categoriesValue: [Category]?
     
     enum CodingKeys: String, CodingKey {
         case categoriesSelf = "self"
-        case categories = "value"
+        case categoriesValue = "value"
     }
     
 }

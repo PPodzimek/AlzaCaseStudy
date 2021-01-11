@@ -26,7 +26,7 @@ class CategoryViewModel {
     private let disposable = DisposeBag()
     
     
-    public func requestHomePage(){
+    public func requestHomePage() {
         
         self.loading.onNext(true)
         
@@ -37,10 +37,8 @@ class CategoryViewModel {
             switch result {
             case .success(let returnJson) :
                 let homePageModel = returnJson["sections"].arrayValue.compactMap { return HomePage(data: try! $0.rawData()) }
-//                let tracks = returnJson["Tracks"].arrayValue.compactMap {return Track(data: try! $0.rawData())}
 //                print("homePageModel: \(homePageModel)")
                 self.homePageModel.onNext(homePageModel)
-//                self.tracks.onNext(tracks)
 //                print("CategoryVM returned JSON: \(returnJson)")
 
             case .failure(let failure) :
@@ -57,7 +55,7 @@ class CategoryViewModel {
         
     }
     
-    public func requestSatelite(url: String){
+    public func requestSatelite(url: String) {
         
         self.loading.onNext(true)
         

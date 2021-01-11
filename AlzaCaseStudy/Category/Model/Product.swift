@@ -21,7 +21,7 @@ struct ProductSelf: Codable {
     
 }
 
-struct Product: Codable {
+struct SateliteProduct: Codable {
     
     let productSelf: ProductSelf?
     let id: Int?
@@ -58,10 +58,10 @@ struct ProductsSelf: Codable {
 struct Products: Codable {
     
     let productsSelf: ProductsSelf?
-    let products: [Product]?
+    let productsValue: [SateliteProduct]?
     
     enum CodingKeys: String, CodingKey {
         case productsSelf = "self"
-        case products = "value"
+        case productsValue = "value"
     }
 }
