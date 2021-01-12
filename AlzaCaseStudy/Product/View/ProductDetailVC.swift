@@ -54,11 +54,13 @@ class ProductDetailVC: UIViewController {
         
         let productName = UILabel()
         productName.textColor = .alzaBlueText
+        productName.textAlignment = .center
         
         view.addSubview(productName)
         productName.snp.makeConstraints { (make) in
             make.top.equalTo(productImage.snp.bottom).offset(24)
-            make.centerX.equalTo(view.snp.centerX)
+            make.leading.equalTo(view.snp.leading).offset(8)
+            make.trailing.equalTo(view.snp.trailing).inset(8)
         }
         self.productName = productName
         

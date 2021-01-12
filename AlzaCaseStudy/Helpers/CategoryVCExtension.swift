@@ -98,6 +98,7 @@ extension CategoryVC: UITableViewDataSource, UITableViewDelegate {
             
         }
         
+        categoryVM.allowRemoval = false
         vc.modalPresentationStyle = .fullScreen
         navigationController?.pushViewController(vc, animated: true)
     }

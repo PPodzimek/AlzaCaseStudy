@@ -120,18 +120,15 @@ class CategoryVC: UIViewController {
                         let desiredProducts = productsArray.filter { (product) in
                             sateliteObj.itemType == "products"
                         }
-                        print("desiredProducts count: \(desiredProducts.count)")
                         self.sateliteProducts.append(contentsOf: desiredProducts)
                     }
 
                 }
-                
-                print("categoriesToRender count: \(String(describing: self.categoriesToRender.count))")
-                print("sateliteProducts count: \(String(describing: self.sateliteProducts.count))")
                 self.tableView.reloadData()
             })
             .disposed(by: disposeBag)
         
+        navigationController?.interactivePopGestureRecognizer?.isEnabled = false
     }
     
 }
