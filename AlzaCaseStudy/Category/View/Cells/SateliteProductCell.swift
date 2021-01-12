@@ -33,10 +33,11 @@ class SateliteProductCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        self.contentView.backgroundColor = .lightGray
+        self.contentView.backgroundColor = .alzaLightGrayBackground
         
         let containerView = UIView()
         containerView.backgroundColor = .white
+        containerView.layer.cornerRadius = 5
         
         self.contentView.addSubview(containerView)
         containerView.snp.makeConstraints { (make) in
@@ -51,50 +52,52 @@ class SateliteProductCell: UITableViewCell {
         self.containerView.addSubview(productImage)
         productImage.snp.makeConstraints { (make) in
             make.top.equalTo(containerView.snp.top).offset(4)
-            make.trailing.equalTo(containerView.snp.trailing).inset(4)
-            make.bottom.equalTo(containerView.snp.bottom).inset(4)
-            make.width.equalTo(productImage.snp.height)
+            make.leading.equalTo(containerView.snp.leading).offset(4)
+            make.width.equalTo(125)
+            make.height.equalTo(productImage.snp.width)
+            
         }
         self.productImage = productImage
         
         
         let name = UILabel()
-        name.textColor = UIColor.darkGray
+        name.numberOfLines = .max
+        name.textColor = .black
+        name.font = UIFont.boldSystemFont(ofSize: 20)
         
         self.containerView.addSubview(name)
         name.snp.makeConstraints { (make) in
             make.top.equalTo(containerView.snp.top).offset(16)
-            make.leading.equalTo(containerView.snp.leading).offset(8)
-            make.height.equalTo(32)
-            make.trailing.equalTo(productImage.snp.leading).inset(8)
+            make.trailing.equalTo(containerView.snp.trailing).inset(8)
+            make.leading.equalTo(productImage.snp.trailing).offset(8)
             
         }
         self.name = name
         
         
         let availability = UILabel()
-        availability.textColor = UIColor.darkGray
+        availability.textColor = .alzaGreen
         
         self.containerView.addSubview(availability)
         availability.snp.makeConstraints { (make) in
             make.top.equalTo(name.snp.bottom).offset(16)
-            make.leading.equalTo(containerView.snp.leading).offset(8)
+            make.trailing.equalTo(containerView.snp.trailing).inset(8)
             make.height.equalTo(16)
-            make.trailing.equalTo(productImage.snp.leading).inset(8)
+            make.leading.equalTo(productImage.snp.trailing).offset(8)
         }
         self.availability = availability
         
         
         let price = UILabel()
-        price.textColor = UIColor.darkGray
+        price.textColor = .alzaRed
         
         self.containerView.addSubview(price)
         price.snp.makeConstraints { (make) in
             make.top.equalTo(availability.snp.bottom).offset(16)
-            make.leading.equalTo(containerView.snp.leading).offset(8)
+            make.trailing.equalTo(containerView.snp.trailing).inset(8)
             make.height.equalTo(24)
             make.bottom.equalTo(containerView.snp.bottom).inset(16)
-            make.trailing.equalTo(productImage.snp.leading).inset(8)
+            make.leading.equalTo(productImage.snp.trailing).offset(8)
         }
         self.price = price
         

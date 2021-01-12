@@ -18,7 +18,7 @@ class EmptyCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        self.contentView.backgroundColor = .lightGray
+        self.contentView.backgroundColor = .alzaLightGrayBackground
         
         self.contentView.snp.makeConstraints { (make) in
             make.height.equalTo(32)

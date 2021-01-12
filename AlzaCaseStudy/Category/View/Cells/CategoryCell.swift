@@ -21,10 +21,11 @@ class CategoryCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
         
-        self.contentView.backgroundColor = .lightGray
+        self.contentView.backgroundColor = .alzaLightGrayBackground
         
         let containerView = UIView()
         containerView.backgroundColor = .white
+        containerView.layer.cornerRadius = 5
         
         self.contentView.addSubview(containerView)
         containerView.snp.makeConstraints { (make) in
@@ -36,7 +37,7 @@ class CategoryCell: UITableViewCell {
         self.containerView = containerView
         
         let label = UILabel()
-        label.textColor = UIColor.darkGray
+        label.textColor = .alzaBlueText
         
         self.containerView.addSubview(label)
         label.snp.makeConstraints { (make) in

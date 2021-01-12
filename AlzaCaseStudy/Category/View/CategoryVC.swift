@@ -11,7 +11,7 @@ import RxSwift
 import RxCocoa
 
 
-class CategoryVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class CategoryVC: UIViewController {
     
     weak var tableView: UITableView!
     
@@ -65,9 +65,9 @@ class CategoryVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     override func loadView() {
         super.loadView()
         
-        navigationController?.navigationBar.barTintColor = .systemBlue
+        navigationController?.navigationBar.barTintColor = .alzaBlueBackground
         navigationController?.navigationBar.tintColor = .white
-        view.backgroundColor = .lightGray
+        view.backgroundColor = .alzaLightGrayBackground
         
         let label = UILabel()
         label.text = "Hello world"
@@ -85,6 +85,7 @@ class CategoryVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
         
         let tableView = UITableView()
         tableView.allowsSelection = true
+        tableView.backgroundColor = .alzaLightGrayBackground
         tableView.rowHeight = UITableView.automaticDimension
         tableView.estimatedRowHeight = 100
         tableView.dataSource = self
@@ -98,24 +99,6 @@ class CategoryVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     }
     
     private func setupBindings() {
-        
-//        categoryVM
-//            .homePageModel
-//            .observeOn(MainScheduler.instance)
-//            .subscribe(onNext: { (result) in
-//                
-//                if let desiredObj = result.first(where: { (homePageObj) -> Bool in
-//                    return homePageObj.name == "Alza" || homePageObj.name == "Electronics"
-//                }) {
-//                    let desiredUrl = desiredObj.section.homePageSelf.sectionUrl.description
-//                    print("desiredUrl: \(String(describing: desiredUrl))")
-//                    self.categoryVM.requestSatelite(url: desiredUrl)
-//                } else {
-//                    print("Error getting desired satelite object")
-//                }
-//            })
-//            .disposed(by: disposeBag)
-        
         
         categoryVM
             .sateliteModel
@@ -158,100 +141,4 @@ class CategoryVC: UIViewController, UITableViewDataSource, UITableViewDelegate {
     
 }
 
-extension CategoryVC {
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 3
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        if section == 0 {
-            return self.categoriesToRender.count
-        } else if section == 2 {
-            return self.sateliteProducts.count
-        } else {
-            return 1
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        
-        if indexPath.section == 0 {
-            let cell: CategoryCell = tableView.dequeCellForIndexPath(indexPath)
-            cell.selectionStyle = .none
-            
-            if let text: String = self.categoriesToRender[indexPath.row].name {
-                cell.setup(text)
-            }
-            
-            return cell
-            
-        } else if indexPath.section == 2 {
-            let cell: SateliteProductCell = tableView.dequeCellForIndexPath(indexPath)
-            cell.selectionStyle = .none
-            
-            if let imagePath = self.sateliteProducts[indexPath.row].imgUrl {
-                imageLoader.obtainImageWithPath(imagePath: imagePath) { (image) in
-                    cell.setupImage(image)
-                }
-            }
-            
-            if let name: String = self.sateliteProducts[indexPath.row].name,
-               let price = self.sateliteProducts[indexPath.row].price,
-               let availability = self.sateliteProducts[indexPath.row].availability {
-                
-                cell.setup(name, price: price, availability: availability)
-            }
-            
-            return cell
-        } else {
-            let cell: EmptyCell = tableView.dequeCellForIndexPath(indexPath)
-            cell.selectionStyle = .none
-            
-            return cell
-        }
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        print("didSelectRowAt indexPath: \(indexPath)")
-        if indexPath.section == 0 {
-            self.pushToNewCategory(indexPath: indexPath)
-        } else if indexPath.section == 1 {
-            self.pushToProductDetail(indexPath: indexPath)
-        }
-    }
-    
-    func pushToNewCategory(indexPath: IndexPath) {
-        print("pushToNewCategory")
-        
-        if let newCategoryUrl = self.categoriesToRender[indexPath.row].categorySelf?.categoryUrl {
-            
-            self.categoryVM.navigationStack.append(newCategoryUrl)
-            let vc = CategoryVC(viewModel: self.categoryVM)
-            categoryVM.allowRemoval = false
-            vc.modalPresentationStyle = .fullScreen
-            navigationController?.pushViewController(vc, animated: true)
-        }
-        
-    }
-    
-    func pushToProductDetail(indexPath: IndexPath) {
-        print("pushToProductDetail")
-    }
-    
-}
 
-extension UITableViewCell {
-    class var cellIdentifier: String {
-        return NSStringFromClass(self)
-    }
-}
-
-extension UITableView {
-    func dequeCellForIndexPath<T>(_ indexPath: IndexPath) -> T where T : UITableViewCell {
-        register(T.classForCoder(), forCellReuseIdentifier: T.cellIdentifier)
-        return dequeueReusableCell(withIdentifier: T.cellIdentifier, for: indexPath) as! T
-    }
-}
