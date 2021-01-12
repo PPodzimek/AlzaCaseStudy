@@ -4,10 +4,9 @@
 target 'AlzaCaseStudy' do
   # Comment the next line if you don't want to use dynamic frameworks
   use_frameworks!
-
-pod 'RxSwift'
+  
+  pod 'RxSwift'
   pod 'RxCocoa'
-  pod 'SwiftyJSON'
   pod 'SnapKit', '~> 5.0'
   pod 'SwiftyJSON', '~> 5.0'
 
