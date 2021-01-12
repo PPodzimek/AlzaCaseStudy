@@ -82,7 +82,7 @@ class SateliteProductCell: UITableViewCell {
         availability.snp.makeConstraints { (make) in
             make.top.equalTo(name.snp.bottom).offset(16)
             make.trailing.equalTo(containerView.snp.trailing).inset(8)
-            make.height.equalTo(16)
+            make.height.equalTo(20)
             make.leading.equalTo(productImage.snp.trailing).offset(8)
         }
         self.availability = availability
