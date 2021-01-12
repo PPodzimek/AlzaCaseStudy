@@ -43,7 +43,6 @@ class SateliteVC: UIViewController {
                     nav.modalPresentationStyle = .fullScreen
                     self.present(nav, animated: false, completion: nil)
                     
-//                    self.categoryVM.requestSatelite(url: desiredUrl)
                 } else {
                     print("Error getting desired satelite object")
                 }

@@ -40,9 +40,8 @@ class CategoryViewModel {
             switch result {
             case .success(let returnJson) :
                 let homePageModel = returnJson["sections"].arrayValue.compactMap { return HomePage(data: try! $0.rawData()) }
-//                print("homePageModel: \(homePageModel)")
+
                 self.homePageModel.onNext(homePageModel)
-//                print("CategoryVM returned JSON: \(returnJson)")
 
             case .failure(let failure) :
                 switch failure {
@@ -70,7 +69,7 @@ class CategoryViewModel {
             case .success(let returnJson) :
 
                 let sateliteModel = returnJson["value"].arrayValue.compactMap { return Satelite(data: try! $0.rawData()) }
-//                print("sateliteModel: \(sateliteModel)")
+
                 self.sateliteModel.onNext(sateliteModel)
             
             case .failure(let failure) :

@@ -18,14 +18,6 @@ class SateliteProductCell: UITableViewCell {
     weak var price: UILabel!
     
     
-    var withBackView : Bool! {
-        didSet {
-            self.backViewGenerator()
-        }
-    }
-    
-    private var backView: UIImageView! // lazy
-    
     required init(coder aDecoder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
@@ -101,15 +93,6 @@ class SateliteProductCell: UITableViewCell {
         }
         self.price = price
         
-        
-        
-        
-//        let backView = UIImageView(frame: productImage.frame)
-        
-//        self.backView = backView
-        
-        
-        
     }
     
     func setup(_ name: String, price: String, availability: String) {
@@ -127,16 +110,5 @@ class SateliteProductCell: UITableViewCell {
         
         
     }
-    
-    
-    
-    private func backViewGenerator(){
-//        backView.loadImage(fromURL: album.albumArtWork)
-    }
-    
-//    override func prepareForReuse() {
-//        productImage.image = UIImage()
-//        backView.image = UIImage()
-//    }
     
 }

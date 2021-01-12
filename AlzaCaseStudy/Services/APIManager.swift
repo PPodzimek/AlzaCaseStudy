@@ -54,8 +54,6 @@ class APIManager {
                 
                 do {
                     let responseJson = try JSON(data: data)
-                    print("responseCode : \(responseCode.statusCode)")
-//                    print("responseJSON : \(responseJson)")
                     
                     switch responseCode.statusCode {
                     

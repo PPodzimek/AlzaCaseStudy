@@ -28,6 +28,7 @@ extension CategoryVC: UITableViewDataSource, UITableViewDelegate {
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         if indexPath.section == 0 {
+            
             let cell: CategoryCell = tableView.dequeCellForIndexPath(indexPath)
             cell.selectionStyle = .none
             
@@ -38,6 +39,7 @@ extension CategoryVC: UITableViewDataSource, UITableViewDelegate {
             return cell
             
         } else if indexPath.section == 2 {
+            
             let cell: SateliteProductCell = tableView.dequeCellForIndexPath(indexPath)
             cell.selectionStyle = .none
             
@@ -55,7 +57,9 @@ extension CategoryVC: UITableViewDataSource, UITableViewDelegate {
             }
             
             return cell
+            
         } else {
+            
             let cell: EmptyCell = tableView.dequeCellForIndexPath(indexPath)
             cell.selectionStyle = .none
             
@@ -65,7 +69,6 @@ extension CategoryVC: UITableViewDataSource, UITableViewDelegate {
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
-        print("didSelectRowAt indexPath: \(indexPath)")
         if indexPath.section == 0 {
             self.pushToNewCategory(indexPath: indexPath)
         } else if indexPath.section == 2 {
@@ -74,7 +77,6 @@ extension CategoryVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func pushToNewCategory(indexPath: IndexPath) {
-        print("pushToNewCategory")
         
         if let newCategoryUrl = self.categoriesToRender[indexPath.row].categorySelf?.categoryUrl {
             
@@ -88,7 +90,6 @@ extension CategoryVC: UITableViewDataSource, UITableViewDelegate {
     }
     
     func pushToProductDetail(indexPath: IndexPath) {
-        print("pushToProductDetail")
         
         let vc = ProductDetailVC()
         

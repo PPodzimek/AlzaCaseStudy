@@ -50,7 +50,7 @@ class CategoryVC: UIViewController {
             categoryVM.allowRemoval = true
             self.categoryVM.requestSatelite(url: desiredUrl)
         }
-//        self.tableView.reloadData()
+
     }
     
     override func viewDidLoad() {
@@ -68,20 +68,6 @@ class CategoryVC: UIViewController {
         navigationController?.navigationBar.barTintColor = .alzaBlueBackground
         navigationController?.navigationBar.tintColor = .white
         view.backgroundColor = .alzaLightGrayBackground
-        
-        let label = UILabel()
-        label.text = "Hello world"
-        label.textColor = .black
-        
-        view.addSubview(label)
-        
-        label.snp.makeConstraints { (make) in
-            make.centerX.equalTo(view.snp.centerX)
-            make.centerY.equalTo(view.snp.centerY)
-            
-        }
-        
-        self.label = label
         
         let tableView = UITableView()
         tableView.allowsSelection = true
