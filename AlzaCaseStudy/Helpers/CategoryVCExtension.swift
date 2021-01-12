@@ -68,7 +68,7 @@ extension CategoryVC: UITableViewDataSource, UITableViewDelegate {
         print("didSelectRowAt indexPath: \(indexPath)")
         if indexPath.section == 0 {
             self.pushToNewCategory(indexPath: indexPath)
-        } else if indexPath.section == 1 {
+        } else if indexPath.section == 2 {
             self.pushToProductDetail(indexPath: indexPath)
         }
     }
@@ -89,6 +89,17 @@ extension CategoryVC: UITableViewDataSource, UITableViewDelegate {
     
     func pushToProductDetail(indexPath: IndexPath) {
         print("pushToProductDetail")
+        
+        let vc = ProductDetailVC()
+        
+        if let url = self.sateliteProducts[indexPath.row].productSelf?.productUrl {
+            
+            vc.productDetailUrl = url
+            
+        }
+        
+        vc.modalPresentationStyle = .fullScreen
+        navigationController?.pushViewController(vc, animated: true)
     }
     
 }

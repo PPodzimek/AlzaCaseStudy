@@ -108,11 +108,6 @@ class CategoryVC: UIViewController {
                 self.sateliteProducts.removeAll()
                 
                 result.forEach { (sateliteObj) in
-                    
-                    print("---")
-                    print("itemType: \(String(describing: sateliteObj.itemType))")
-                    print("title: \(String(describing: sateliteObj.title))")
-                    print("---\n")
 
                     if let categoriesArray = sateliteObj.categories?.categoriesValue?.compactMap({ $0 }) {
                         let desiredCategories = categoriesArray.filter { (category) in

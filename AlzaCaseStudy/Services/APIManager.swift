@@ -45,13 +45,6 @@ class APIManager {
         urlRequest.allHTTPHeaderFields = header
         urlRequest.httpMethod = method.rawValue
         
-//        if let parameters = parameters {
-//            let parameterData = parameters.reduce("") { (result, param) -> String in
-//                return result + "&\(param.key)=\(param.value as! String)"
-//            }.data(using: .utf8)
-//            urlRequest.httpBody = parameterData
-//        }
-        
         URLSession.shared.dataTask(with: urlRequest) { (data, response, error) in
             
             if let error = error {
